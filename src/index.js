@@ -10,11 +10,13 @@ import Marker from './components/Marker'
 import NearbyPlaces from './components/NearbyPlaces'
 import PlaceDetails from './components/PlaceDetails'
 import UserPosition from './components/UserPosition'
+import Rectangle from './components/Rectangle'
 
 import MapElement from './mixins/MapElement'
 
 export {
 	Circle,
+	Rectangle,
 	Geocoder,
 	Map,
 	Marker,
@@ -26,6 +28,7 @@ export {
 
 function registerComponents (Vue, prefix) {
 	Vue.component(`${prefix}circle`, Circle)
+	Vue.component(`${prefix}rectangle`, Rectangle)
 	Vue.component(`${prefix}geocoder`, Geocoder)
 	Vue.component(`${prefix}map`, Map)
 	Vue.component(`${prefix}marker`, Marker)

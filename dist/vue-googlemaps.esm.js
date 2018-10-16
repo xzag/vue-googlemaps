@@ -2234,8 +2234,77 @@ var UserPosition = {
 	}
 };
 
+var boundProps$3 = ['bounds', 'draggable', 'editable', 'visible'];
+
+var redirectedEvents$3 = ['click', 'rightclick', 'dblclick', 'drag', 'dragstart', 'dragend', 'mouseup', 'mousedown', 'mouseover', 'mouseout'];
+
+var Rectangle = {
+	name: 'GoogleMapsRectangle',
+
+	mixins: [MapElement],
+
+	props: {
+		bounds: {
+			type: Object,
+			required: true
+		},
+		clickable: {
+			type: Boolean,
+			default: true
+		},
+		draggable: {
+			type: Boolean,
+			default: false
+		},
+		editable: {
+			type: Boolean,
+			default: false
+		},
+		options: {
+			type: Object,
+			default: function _default() {
+				return {};
+			}
+		},
+		visible: {
+			default: true
+		},
+		zIndex: {
+			type: Number
+		}
+	},
+
+	watch: {
+		clickable: 'updateOptions',
+		zIndex: 'updateOptions'
+	},
+
+	methods: {
+		updateOptions: function updateOptions(options) {
+			this.$_rectangle && this.$_rectangle.setOptions(options || this.$props);
+		}
+	},
+
+	render: function render(h) {
+		return '';
+	},
+	googleMapsReady: function googleMapsReady() {
+		var options = this.$props;
+		options.map = this.$map;
+		this.$_rectangle = new window.google.maps.Rectangle(options);
+		this.bindProps(this.$_rectangle, boundProps$3);
+		this.redirectEvents(this.$_rectangle, redirectedEvents$3);
+	},
+	beforeDestroy: function beforeDestroy() {
+		if (this.$_rectangle) {
+			this.$_rectangle.setMap(null);
+		}
+	}
+};
+
 function registerComponents(Vue, prefix) {
 	Vue.component(prefix + 'circle', Circle);
+	Vue.component(prefix + 'rectangle', Rectangle);
 	Vue.component(prefix + 'geocoder', Geocoder);
 	Vue.component(prefix + 'map', Map);
 	Vue.component(prefix + 'marker', Marker);
@@ -2277,5 +2346,5 @@ if (GlobalVue) {
 	GlobalVue.use(plugin);
 }
 
-export { Circle, Geocoder, Map, Marker, NearbyPlaces, PlaceDetails, UserPosition, MapElement };
+export { Circle, Rectangle, Geocoder, Map, Marker, NearbyPlaces, PlaceDetails, UserPosition, MapElement };
 export default plugin;
