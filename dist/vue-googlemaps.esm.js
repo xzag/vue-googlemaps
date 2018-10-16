@@ -1925,7 +1925,10 @@ var Map = { render: function render() {
 
 
 	watch: {
-		options: 'updateOptions'
+		options: {
+			handler: 'updateOptions',
+			deep: true
+		}
 	},
 
 	methods: _extends({}, redirectMethods({

@@ -149,7 +149,10 @@ export default {
 	},
 
 	watch: {
-		options: 'updateOptions',
+		options: {
+			handler: 'updateOptions',
+			deep: true,
+		},
 	},
 
 	methods: {
