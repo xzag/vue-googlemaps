@@ -2234,9 +2234,71 @@ var UserPosition = {
 	}
 };
 
-var boundProps$3 = ['bounds', 'draggable', 'editable', 'visible'];
+var boundProps$3 = ['draggable', 'editable', 'options', 'path'];
 
 var redirectedEvents$3 = ['click', 'rightclick', 'dblclick', 'drag', 'dragstart', 'dragend', 'mouseup', 'mousedown', 'mouseover', 'mouseout'];
+
+var Polyline = {
+	name: 'GoogleMapsPolyline',
+
+	mixins: [MapElement],
+
+	props: {
+		editable: {
+			type: Boolean,
+			default: false
+		},
+		draggable: {
+			type: Boolean,
+			default: false
+		},
+		options: {
+			type: Object,
+			default: function _default() {
+				return {};
+			}
+		},
+		path: {
+			type: Array
+		}
+	},
+
+	watch: {
+		options: 'updateOptions'
+	},
+
+	methods: {
+		updateOptions: function updateOptions(options) {
+			this.$_polyline && this.$_polyline.setOptions(options || this.$props);
+		}
+	},
+
+	render: function render(h) {
+		return '';
+	},
+	googleMapsReady: function googleMapsReady() {
+		var _this = this;
+
+		var options = Object.assign({}, this.$props);
+		options.map = this.$_map;
+
+		this.$_polyline = new window.google.maps.Polyline(options);
+		this.bindProps(this.$_polyline, boundProps$3);
+		this.redirectEvents(this.$_polyline, redirectedEvents$3);
+		this.listen(this.$_polyline, 'drag', function () {
+			_this.$emit('path_changed', _this.$_polyline.getPath());
+		});
+	},
+	beforeDestroy: function beforeDestroy() {
+		if (this.$_polyline) {
+			this.$_polyline.setMap(null);
+		}
+	}
+};
+
+var boundProps$4 = ['bounds', 'draggable', 'editable', 'visible'];
+
+var redirectedEvents$4 = ['click', 'rightclick', 'dblclick', 'drag', 'dragstart', 'dragend', 'mouseup', 'mousedown', 'mouseover', 'mouseout'];
 
 var Rectangle = {
 	name: 'GoogleMapsRectangle',
@@ -2292,8 +2354,8 @@ var Rectangle = {
 		var options = this.$props;
 		options.map = this.$map;
 		this.$_rectangle = new window.google.maps.Rectangle(options);
-		this.bindProps(this.$_rectangle, boundProps$3);
-		this.redirectEvents(this.$_rectangle, redirectedEvents$3);
+		this.bindProps(this.$_rectangle, boundProps$4);
+		this.redirectEvents(this.$_rectangle, redirectedEvents$4);
 	},
 	beforeDestroy: function beforeDestroy() {
 		if (this.$_rectangle) {
@@ -2311,6 +2373,7 @@ function registerComponents(Vue, prefix) {
 	Vue.component(prefix + 'nearby-places', NearbyPlaces);
 	Vue.component(prefix + 'place-details', PlaceDetails);
 	Vue.component(prefix + 'user-position', UserPosition);
+	Vue.component(prefix + 'polyline', Polyline);
 }
 
 var plugin = {
@@ -2346,5 +2409,5 @@ if (GlobalVue) {
 	GlobalVue.use(plugin);
 }
 
-export { Circle, Rectangle, Geocoder, Map, Marker, NearbyPlaces, PlaceDetails, UserPosition, MapElement };
+export { Circle, Rectangle, Geocoder, Map, Marker, NearbyPlaces, PlaceDetails, UserPosition, MapElement, Polyline };
 export default plugin;
