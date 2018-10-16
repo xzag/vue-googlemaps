@@ -1843,7 +1843,7 @@ var boundProps$1 = [{
 			lng: value.lng()
 		};
 	}
-}, 'heading', 'mapTypeId', 'tilt', 'zoom'];
+}, 'heading', 'mapTypeId', 'tilt', 'zoom', 'options'];
 
 var redirectedMethods = ['panBy', 'panTo', 'panToBounds', 'fitBounds', 'getBounds'];
 
@@ -1930,6 +1930,10 @@ var Map = { render: function render() {
 	},
 
 
+	watch: {
+		options: 'updateOptions'
+	},
+
 	methods: _extends({}, redirectMethods({
 		target: function target() {
 			return this.$_map;
@@ -1962,6 +1966,9 @@ var Map = { render: function render() {
 					_this2.$_mapPromises.push(resolve);
 				});
 			}
+		},
+		updateOptions: function updateOptions(options) {
+			this.$_map && this.$_map.setOptions(options || this.$props);
 		}
 	})
 };
