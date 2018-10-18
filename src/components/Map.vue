@@ -62,6 +62,8 @@ const redirectedEvents = [
 	'drag',
 	'dragend',
 	'dragstart',
+	'mousedown',
+	'mouseup',
 	'mousemove',
 	'mouseout',
 	'mouseover',

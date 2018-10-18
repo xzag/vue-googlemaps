@@ -1849,7 +1849,7 @@ var boundProps$1 = [{
 
 var redirectedMethods = ['panBy', 'panTo', 'panToBounds', 'fitBounds', 'getBounds'];
 
-var redirectedEvents$1 = ['click', 'dblclick', 'drag', 'dragend', 'dragstart', 'mousemove', 'mouseout', 'mouseover', 'resize', 'rightclick', 'tilesloaded'];
+var redirectedEvents$1 = ['click', 'dblclick', 'drag', 'dragend', 'dragstart', 'mousedown', 'mouseup', 'mousemove', 'mouseout', 'mouseover', 'resize', 'rightclick', 'tilesloaded'];
 
 var Map = { render: function render() {
 		var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { directives: [{ name: "observe-visibility", rawName: "v-observe-visibility", value: _vm.visibilityChanged, expression: "visibilityChanged" }], staticClass: "vue-google-map" }, [_c('div', { ref: "map", staticClass: "map-view" }), _vm._v(" "), _c('div', { staticClass: "hidden-content" }, [_vm._t("default")], 2), _vm._v(" "), _vm._t("visible"), _vm._v(" "), _c('resize-observer', { on: { "notify": _vm.resize } })], 2);
