@@ -1465,8 +1465,9 @@ var Circle = {
 		return '';
 	},
 	googleMapsReady: function googleMapsReady() {
-		var options = this.$props;
-		options.map = this.$map;
+		var options = Object.assign({}, this.$props);
+		options.map = this.$_map;
+
 		this.$_circle = new window.google.maps.Circle(options);
 		this.bindProps(this.$_circle, boundProps);
 		this.redirectEvents(this.$_circle, redirectedEvents);
@@ -2361,8 +2362,9 @@ var Rectangle = {
 		return '';
 	},
 	googleMapsReady: function googleMapsReady() {
-		var options = this.$props;
-		options.map = this.$map;
+		var options = Object.assign({}, this.$props);
+		options.map = this.$_map;
+
 		this.$_rectangle = new window.google.maps.Rectangle(options);
 		this.bindProps(this.$_rectangle, boundProps$4);
 		this.redirectEvents(this.$_rectangle, redirectedEvents$4);

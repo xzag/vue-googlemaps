@@ -72,8 +72,9 @@ export default {
 	},
 
 	googleMapsReady () {
-		const options = this.$props
-		options.map = this.$map
+		const options = Object.assign({}, this.$props)
+		options.map = this.$_map
+
 		this.$_rectangle = new window.google.maps.Rectangle(options)
 		this.bindProps(this.$_rectangle, boundProps)
 		this.redirectEvents(this.$_rectangle, redirectedEvents)

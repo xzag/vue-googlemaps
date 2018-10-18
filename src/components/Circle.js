@@ -77,8 +77,9 @@ export default {
 	},
 
 	googleMapsReady () {
-		const options = this.$props
-		options.map = this.$map
+		const options = Object.assign({}, this.$props)
+		options.map = this.$_map
+
 		this.$_circle = new window.google.maps.Circle(options)
 		this.bindProps(this.$_circle, boundProps)
 		this.redirectEvents(this.$_circle, redirectedEvents)
