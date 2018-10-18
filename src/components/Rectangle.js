@@ -58,7 +58,7 @@ export default {
 	},
 
 	watch: {
-		bounds: 'updateOptions',
+		bounds: 'updateBounds',
 		options: 'updateOptions',
 		clickable: 'updateOptions',
 		zIndex: 'updateOptions',
@@ -67,6 +67,10 @@ export default {
 	methods: {
 		updateOptions (options) {
 			this.$_rectangle && this.$_rectangle.setOptions(options || this.$props)
+		},
+
+		updateBounds (bounds) {
+			this.$_rectangle && this.$_rectangle.setBounds(bounds)
 		},
 	},
 

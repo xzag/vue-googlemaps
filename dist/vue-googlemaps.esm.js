@@ -2349,7 +2349,7 @@ var Rectangle = {
 	},
 
 	watch: {
-		bounds: 'updateOptions',
+		bounds: 'updateBounds',
 		options: 'updateOptions',
 		clickable: 'updateOptions',
 		zIndex: 'updateOptions'
@@ -2358,6 +2358,9 @@ var Rectangle = {
 	methods: {
 		updateOptions: function updateOptions(options) {
 			this.$_rectangle && this.$_rectangle.setOptions(options || this.$props);
+		},
+		updateBounds: function updateBounds(bounds) {
+			this.$_rectangle && this.$_rectangle.setBounds(bounds);
 		}
 	},
 
