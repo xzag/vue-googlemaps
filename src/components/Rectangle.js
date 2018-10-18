@@ -58,6 +58,7 @@ export default {
 	},
 
 	watch: {
+		bounds: 'updateOptions',
 		options: 'updateOptions',
 		clickable: 'updateOptions',
 		zIndex: 'updateOptions',

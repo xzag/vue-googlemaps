@@ -2355,6 +2355,7 @@ var Rectangle = {
 	},
 
 	watch: {
+		bounds: 'updateOptions',
 		options: 'updateOptions',
 		clickable: 'updateOptions',
 		zIndex: 'updateOptions'
