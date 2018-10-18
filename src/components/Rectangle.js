@@ -5,6 +5,7 @@ const boundProps = [
 	'draggable',
 	'editable',
 	'visible',
+	'options',
 ]
 
 const redirectedEvents = [
@@ -57,6 +58,7 @@ export default {
 	},
 
 	watch: {
+		options: 'updateOptions',
 		clickable: 'updateOptions',
 		zIndex: 'updateOptions',
 	},

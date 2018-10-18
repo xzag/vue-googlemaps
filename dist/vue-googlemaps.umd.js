@@ -1412,7 +1412,7 @@ var MapElement = {
 	}
 };
 
-var boundProps = ['center', 'draggable', 'editable', 'radius', 'visible'];
+var boundProps = ['center', 'draggable', 'editable', 'radius', 'visible', 'options'];
 
 var redirectedEvents = ['click', 'rightclick', 'dblclick', 'drag', 'dragstart', 'dragend', 'mouseup', 'mousedown', 'mouseover', 'mouseout'];
 
@@ -1457,6 +1457,7 @@ var Circle = {
 	},
 
 	watch: {
+		options: 'updateOptions',
 		clickable: 'updateOptions',
 		zIndex: 'updateOptions'
 	},
@@ -2313,7 +2314,7 @@ var Polyline = {
 	}
 };
 
-var boundProps$4 = ['bounds', 'draggable', 'editable', 'visible'];
+var boundProps$4 = ['bounds', 'draggable', 'editable', 'visible', 'options'];
 
 var redirectedEvents$4 = ['click', 'rightclick', 'dblclick', 'drag', 'dragstart', 'dragend', 'mouseup', 'mousedown', 'mouseover', 'mouseout'];
 
@@ -2354,6 +2355,7 @@ var Rectangle = {
 	},
 
 	watch: {
+		options: 'updateOptions',
 		clickable: 'updateOptions',
 		zIndex: 'updateOptions'
 	},
