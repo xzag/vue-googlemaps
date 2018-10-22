@@ -2388,6 +2388,69 @@ var Rectangle = {
 	}
 };
 
+var boundProps$5 = ['draggable', 'editable', 'options', 'paths'];
+
+var redirectedEvents$5 = ['click', 'rightclick', 'dblclick', 'drag', 'dragstart', 'dragend', 'mouseup', 'mousedown', 'mouseover', 'mouseout'];
+
+var Polygon = {
+	name: 'GoogleMapsPolygon',
+
+	mixins: [MapElement],
+
+	props: {
+		editable: {
+			type: Boolean,
+			default: false
+		},
+		draggable: {
+			type: Boolean,
+			default: false
+		},
+		options: {
+			type: Object,
+			default: function _default() {
+				return {};
+			}
+		},
+		paths: {
+			type: Array
+		}
+	},
+
+	watch: {
+		paths: 'updateOptions',
+		options: 'updateOptions'
+	},
+
+	methods: {
+		updateOptions: function updateOptions(options) {
+			this.$_polygon && this.$_polygon.setOptions(options || this.$props);
+		}
+	},
+
+	render: function render(h) {
+		return '';
+	},
+	googleMapsReady: function googleMapsReady() {
+		var _this = this;
+
+		var options = Object.assign({}, this.$props);
+		options.map = this.$_map;
+
+		this.$_polygon = new window.google.maps.Polygon(options);
+		this.bindProps(this.$_polygon, boundProps$5);
+		this.redirectEvents(this.$_polygon, redirectedEvents$5);
+		this.listen(this.$_polygon, 'drag', function () {
+			_this.$emit('path_changed', _this.$_polygon.getPath());
+		});
+	},
+	beforeDestroy: function beforeDestroy() {
+		if (this.$_polygon) {
+			this.$_polygon.setMap(null);
+		}
+	}
+};
+
 function registerComponents(Vue, prefix) {
 	Vue.component(prefix + 'circle', Circle);
 	Vue.component(prefix + 'rectangle', Rectangle);
@@ -2398,6 +2461,7 @@ function registerComponents(Vue, prefix) {
 	Vue.component(prefix + 'place-details', PlaceDetails);
 	Vue.component(prefix + 'user-position', UserPosition);
 	Vue.component(prefix + 'polyline', Polyline);
+	Vue.component(prefix + 'polygon', Polygon);
 }
 
 var plugin = {
@@ -2443,6 +2507,7 @@ exports.PlaceDetails = PlaceDetails;
 exports.UserPosition = UserPosition;
 exports.MapElement = MapElement;
 exports.Polyline = Polyline;
+exports.Polygon = Polygon;
 exports['default'] = plugin;
 
 Object.defineProperty(exports, '__esModule', { value: true });
